@@ -1,1 +1,4 @@
 this is the fred .text file
+
+I have made some changes to it
+
