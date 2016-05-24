@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Kate on 15/05/2016.
  */
 public class Pagination {
-    private static WebDriver driver;
+    public static WebDriver driver;
     private String s = null;
     private Integer ix_one = null;
     private Integer ix_first = null;
@@ -24,6 +24,9 @@ public class Pagination {
     private Integer ix_next = null;
     private Integer ix_prev = null;
     private Integer active_page_no = null;
+
+    private Integer prev_active_page_no = null;
+    private Integer max_page_no = null;
 
     List<WebElement> AllCheckBoxes = null;
 
@@ -104,17 +107,26 @@ public class Pagination {
     }
 
 
-    public void goToNextPage() {
+    public boolean goToNextPage() {
         try {
             AllCheckBoxes.get(ix_next).click();
         } catch (Exception e) {
             System.out.println("");
             System.out.println(e.getMessage());
+            return false;
         }
+        return true;
     }
 
-    public void goToPrevPage() {
-        AllCheckBoxes.get(ix_prev).click();
+    public boolean goToPrevPage() {
+        try {
+            AllCheckBoxes.get(ix_prev).click();
+        }
+        catch (Exception e) {
+            System.out.println("goToPrevPage " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public boolean goToPage(Integer n) {
@@ -125,6 +137,11 @@ public class Pagination {
             return false;
         }
         return true;
+    }
+
+
+    public void goToLastPage() {
+        goToPage(max_page_no);
     }
 
     public void processDropDown() {
